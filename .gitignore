@@ -1,0 +1,29 @@
+# Privacy - never commit user data
+Автокалендарь.xlsx
+autocalendar_initial_backup.json
+*.xlsx
+*backup*.json
+*backup*.zip
+public/*backup*.json
+public/*backup*.zip
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Local env
+.env
+.env.local
+.env.*.local
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
