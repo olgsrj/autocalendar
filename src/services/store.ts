@@ -11,8 +11,7 @@ import type {
   MiscExpense,
   InsuranceDocument,
   AppSettings,
-  NavigationTab,
-  BackupData
+  NavigationTab
 } from '../types';
 import {
   calculateCurrentMileage,
@@ -350,28 +349,6 @@ export function navigateToInsurance(docId: string) {
   setTimeout(() => {
     highlightedInsuranceId.value = null;
   }, 3500);
-}
-
-// 7. Initial Backup Import
-export async function importInitialBackupData(): Promise<boolean> {
-  isLoading.value = true;
-  try {
-    const res = await fetch('./autocalendar_initial_backup.json');
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}`);
-    }
-    const data: BackupData = await res.json();
-    await db.importBackup(data, 'replace');
-    await loadAllData();
-    showToast('База данных успешно импортирована!');
-    return true;
-  } catch (err) {
-    console.error('Failed to import backup:', err);
-    showToast('Ошибка импорта начальной базы данных');
-    return false;
-  } finally {
-    isLoading.value = false;
-  }
 }
 
 // 8. CRUD Actions with Cascade Recalculation

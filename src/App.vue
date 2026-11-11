@@ -43,7 +43,7 @@ onMounted(async () => {
         <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Загрузка данных...</p>
       </div>
 
-      <!-- If DB is empty, show welcoming 1-click import prompt -->
+      <!-- Empty database welcome prompt -->
       <EmptyDatabasePrompt v-else-if="isDatabaseEmpty" />
 
       <!-- Active Screen -->

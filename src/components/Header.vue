@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import {
   activeCar,
   isGarageModalOpen,
+  isDatabaseEmpty,
   currentTab,
   navigateTo,
   navigateBack
@@ -60,6 +61,7 @@ function onSettingsClick() {
 
       <!-- Right Action Button: Settings or Back -->
       <button
+        v-if="!isDatabaseEmpty"
         @click="onSettingsClick"
         type="button"
         class="w-9 h-9 rounded-xl flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95"

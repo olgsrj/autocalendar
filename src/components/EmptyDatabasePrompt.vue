@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import JSZip from 'jszip';
-import { importInitialBackupData, isCarModalOpen, editingCar, showToast } from '../services/store';
+import { isCarModalOpen, editingCar, showToast, loadAllData } from '../services/store';
 import { db } from '../db';
-import { loadAllData } from '../services/store';
-import { Car, UploadCloud, PlusCircle, Sparkles } from 'lucide-vue-next';
+import { Car, UploadCloud, PlusCircle } from 'lucide-vue-next';
 
 const isImporting = ref(false);
 const fileInput = ref<HTMLInputElement | null>(null);
-
-async function onInitialImport() {
-  isImporting.value = true;
-  await importInitialBackupData();
-  isImporting.value = false;
-}
 
 function onAddNewCar() {
   editingCar.value = null;
@@ -71,18 +64,16 @@ async function handleFileUpload(e: Event) {
       </p>
 
       <div class="space-y-3">
-        <!-- 1-Click Initial Backup Import -->
         <button
-          @click="onInitialImport"
+          @click="onAddNewCar"
           :disabled="isImporting"
           type="button"
           class="w-full h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 active:scale-[0.98] transition disabled:opacity-50"
         >
-          <Sparkles class="w-5 h-5 text-amber-300" />
-          <span>{{ isImporting ? 'Импортируем данные...' : 'Загрузить данные Lacetti (1 клик)' }}</span>
+          <PlusCircle class="w-5 h-5" />
+          <span>Добавить автомобиль</span>
         </button>
 
-        <!-- Custom backup upload -->
         <button
           @click="onCustomFileClick"
           :disabled="isImporting"
@@ -90,17 +81,7 @@ async function handleFileUpload(e: Event) {
           class="w-full h-12 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold rounded-2xl flex items-center justify-center gap-2 active:scale-[0.98] transition disabled:opacity-50 text-sm"
         >
           <UploadCloud class="w-4 h-4 text-slate-500" />
-          <span>Импортировать свой .json / .zip бэкап</span>
-        </button>
-
-        <!-- Add Empty Car -->
-        <button
-          @click="onAddNewCar"
-          type="button"
-          class="w-full h-12 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-700 dark:text-slate-300 font-semibold rounded-2xl flex items-center justify-center gap-2 active:scale-[0.98] transition text-sm"
-        >
-          <PlusCircle class="w-4 h-4 text-slate-500" />
-          <span>Добавить новый автомобиль с нуля</span>
+          <span>{{ isImporting ? 'Импортируем данные...' : 'Импортировать .json / .zip бэкап' }}</span>
         </button>
       </div>
 
